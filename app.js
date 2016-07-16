@@ -1,17 +1,21 @@
-var events = require('events');
-var EventEmitter = events.EventEmitter;
+var http = require('http');
 
-var chat = new EventEmitter();
-var users = [], chatlog = [];
+var server = http.createServer();
 
-chat.on('message', function(message){
-    console.push(message);
+server.on('request', function(request, response) {
+    
+    response.writeHead(200);
+    response.write("Olá, Esta é a Glaucia Lemos");
+    response.end();
 });
 
-chat.on('join', function(nickname){
-    console.push(nickname);
+server.on('request', function(request, response) { 
+
+    console.log("New request coming in....");
 });
 
-/* Eventos: Emit */
-chat.emit('join', "Lemos");
-chat.emit('message', "Oi, Glaucia!");
+server.on('close', function(request, response) {
+
+    console.log("Closing down the server...");
+});
+server.listen(8080);
